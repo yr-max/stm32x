@@ -1,0 +1,49 @@
+# === Keil / ARMCC build artifacts ===
+*.o
+*.d
+*.crf
+*.axf
+*.hex
+*.bin
+*.map
+*.lst
+*.htm
+*.dep
+*.uvgui.*
+*.uvoptx
+*.uvguix.*
+
+# === Build directories ===
+OBJ/
+Listings/
+Objects/
+build/
+DebugConfig/
+
+# === Debug / JTAG ===
+*.jtag
+*.ini
+*.dbgconf
+
+# === OS files ===
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# === Large reference material directories (not our own code) ===
+LiteOS/
+程序源码/
+模块资料/
+资料/
+
+# === Early/temporary projects (final code lives in 实验沙盒*/) ===
+project1/
+test_key1/
+
+# === Misc ===
+stm32-liteos-expansion.zip
+
+# === WorkBuddy daily logs (memory notes are kept) ===
+.workbuddy/memory/2026-*.md
+.workbuddy/memory/2027-*.md
+.workbuddy/memory/2028-*.md
