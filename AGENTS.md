@@ -12,7 +12,7 @@
 | 路径 | `D:\Keil_v5\UV4\UV4.exe` |
 | 编译器 | ARMCC V5.06 |
 | 编译命令 | `"D:\Keil_v5\UV4\UV4.exe" -b <工程路径>\test.uvprojx -o <输出日志>` |
-| 工程入口 | `实验沙盒三/test_key1/USER/test.uvprojx`（实验三，当前最新） |
+| 工程入口 | `实验沙盒五/test_key1/USER/test.uvprojx`（实验五，当前最新） |
 
 ---
 
@@ -38,7 +38,7 @@
 | 二 | 按键与显示 | `实验沙盒二/test_key1/` | ✅ |
 | 三 | 温度及光照检测 | `实验沙盒三/test_key1/` | ✅ 完成 |
 | 四 | 舵机和直流电机控制 | `沙盒实验四/test_key1/` | ✅ 完成 |
-| 五 | 综合实验 | — | ⬜ |
+| 五 | 综合实验 | `实验沙盒五/test_key1/` | ✅ 完成 |
 
 ---
 
@@ -107,10 +107,26 @@
 | 电机 IN2 | PB9 | GPIO | TB6612FNG 方向控制 |
 
 > 避开 PA1~PA4（W25Q64 软件 SPI），两路 PWM 用不同定时器互不干扰。
+> TB6612FNG 端口：左排 `PWMA,AIN2,AIN1,STBY,BIN1,BIN2,PWMB,GND`；右排 `VM,VCC,GND,AO1,AO2,BO1,BO2,GND`。
+> 本实验使用 A 通道（AIN1/AIN2/PWMA），B 通道悬空。
 
 ---
 
-## 9. 目录结构
+## 9. 实验五概要
+
+> 详见 `实验报告/refs/实验五_代码说明.md` · `实验报告/refs/实验五_硬件映射.md`
+
+- 在实验四基础上扩展为综合实验：温度/光照采集 + OLED 显示 + 串口上传 + 舵机/电机控制。
+- 5 个 LiteOS 任务：Display / Key / Storage / Sensor / Comm。
+- 温度超过上限 → 电机转速与超出值成正比（0~100）。
+- 光照超过上限 → 舵机角度与超出值成正比（0~180°）。
+- PC 可通过串口命令 `T<值>` / `L<值>` 设置温度/光照上限（例：T35、L50）。
+- 串口每 500ms 自动上传：`T:xxC L:xx% TL:xxC LL:xx% S:xxx M:xxx`。
+- 任务要求：`实验要求.md` 实验五章节。
+
+---
+
+## 10. 目录结构
 
 ```
 E:\aiandlearning\stm32x\
@@ -133,7 +149,9 @@ E:\aiandlearning\stm32x\
 ├── 沙盒实验四/                      ← 实验四
 │   ├── 6-4 PWM驱动舵机/             ← 参考例程
 │   ├── 6-5 PWM驱动直流电机/         ← 参考例程
-│   └── test_key1/                   ← 当前开发工程
+│   └── test_key1/                   ← 实验四工程
+├── 实验沙盒五/                      ← 实验五（综合实验）
+│   └── test_key1/                   ← 实验五工程
 ├── LiteOS/                           ← LiteOS 源码
 ├── 程序源码/、模块资料/、资料/
 └── .workbuddy/                       ← Agent 工作记忆
@@ -141,7 +159,7 @@ E:\aiandlearning\stm32x\
 
 ---
 
-## 10. 维护规范
+## 11. 维护规范
 
 1. **AGENTS.md** 保持精简，只放核心信息和路径引用。
 2. 详细内容放在 `实验报告/refs/`，AGENTS.md 引用。
